@@ -154,3 +154,25 @@ def clean_aupvb_pbp(pbp):
     pbp = pbp[column_order]
     
     return pbp
+
+def get_season_id(season):
+    """
+    Get a season_id from a given season.
+
+    Parameters
+    ----------
+    season : int
+        The season year (e.g., 2023)
+
+    Returns
+    -------
+    int or None
+        The corresponding season ID, or None if season not recognized.
+    """
+    season_ids = {
+        2021 : 3,
+        2022 : 11, 
+        2023 : 138,
+        2024 : 205,
+    }
+    return season_ids.get(season)

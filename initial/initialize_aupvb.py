@@ -1,6 +1,7 @@
 import pandas as pd
 import requests
 import janitor
+from datetime import datetime
 
 import sys
 import os
@@ -18,9 +19,11 @@ def initialize_aupvb_player_info():
     None
     """
     player_info = pd.DataFrame()
-    season = 2021
 
-    for season_id in [3, 11, 138, 205]:
+    year = datetime.now().year
+
+    for season in list(range(2021, year)):
+        season_id = get_season_id(season)
         for game_number in range(1, 31):
             url = f"https://auprosports.com/proxy.php?request=/api/stats/v2/volleyball/{season_id}/by-game/{game_number}?statTypes=volleyball"
             headers = {
@@ -32,7 +35,6 @@ def initialize_aupvb_player_info():
             new_player_info = extract_aupvb_player_info(json)
             new_player_info['season'] = season
             player_info = pd.concat([player_info, new_player_info], ignore_index=True)
-        season += 1
 
     player_info = clean_aupvb_player_info(player_info)
     player_info.to_csv('aupvb_player_info.csv', index=False)
@@ -48,7 +50,10 @@ def initialize_aupvb_leaderboards():
     """
     leaderboards = pd.DataFrame()
 
-    for season_id in [3, 11, 138, 205]:
+    year = datetime.now().year
+
+    for season in list(range(2021, year)):
+        season_id = get_season_id(season)
         for game_number in range(1, 31):
             url = f"https://auprosports.com/proxy.php?request=/api/leaderboard/v2/volleyball/type/game?gameNumber={game_number}%26season={season_id}"
             headers = {
@@ -71,8 +76,12 @@ def initialize_aupvb_pbp():
     -------
     None
     """
-    season = 2021
-    for season_id in [3, 11, 138, 205]:
+
+    year = datetime.now().year
+
+    for season in list(range(2021, year)):
+        season_id = get_season_id(season)
+
         pbp = pd.DataFrame()
         for game_number in range(1, 31):
             url = f"https://auprosports.com/proxy.php?request=/api/play-by-play/v2/volleyball/event/{season_id}/{game_number}"
@@ -89,4 +98,3 @@ def initialize_aupvb_pbp():
 
         pbp = clean_aupvb_pbp(pbp)
         pbp.to_csv(f'aupvb_pbp_{season}.csv', index=False)
-        season += 1
