@@ -11,6 +11,7 @@ from extract_aupvb_data import *
 from helpers import *
 from upload_to_releases import upload_to_releases
 
+
 def initialize_aupvb_player_info():
     """
     Initializes and stores player info data for all Athletes Unlimited Pro Volleyball games.
@@ -103,7 +104,3 @@ def initialize_aupvb_pbp():
         file_name = 'aupvb_pbp_' + str(season) + '.csv'
         pbp.to_csv(file_name, index=False)
         upload_to_releases(file_name, 'aupvb-pbp')
-
-
-initialize_aupvb_leaderboards()
-initialize_aupvb_pbp()
