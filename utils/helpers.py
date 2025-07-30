@@ -115,6 +115,22 @@ def clean_aupvb_leaderboards(leaderboards):
     ]
     leaderboards = leaderboards[column_order]
 
+    fillna_columns = [
+        'first_place_mvp', 'first_place_total_points', 'second_place_mvp',
+        'second_place_total_points', 'third_place_mvp', 'third_place_total_points',
+        'defensive_mvp', 'defensive_mvp_total_points',
+        'service_aces', 'service_ace_points', 'service_errors', 'service_error_points',
+        'attack_kills', 'attack_kill_points', 'attack_errors', 'attack_error_points',
+        'set_assists', 'set_assist_points', 'set_errors', 'set_error_points',
+        'digs', 'dig_points', 'good_receptions', 'good_reception_points',
+        'reception_errors', 'reception_error_points',
+        'block_assists', 'block_assist_points', 'block_stuffs', 'block_stuff_points'
+    ]
+    leaderboards[fillna_columns] = leaderboards[fillna_columns].fillna(0)
+
+    mvp_cols = ['first_place_mvp', 'second_place_mvp', 'third_place_mvp', 'defensive_mvp']
+    leaderboards[mvp_cols] = leaderboards[mvp_cols].astype(bool)
+
     return leaderboards
 
 
