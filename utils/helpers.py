@@ -47,6 +47,7 @@ def clean_aupvb_player_info(player_info):
     ]
     player_info = player_info[column_order]
 
+    player_info['played_this_match'] = player_info['played_this_match'].fillna(0).astype(bool)
     player_info['block_assists'] = player_info['block_assists'].fillna(0)
     player_info['block_assists_per_set'] = player_info['block_assists_per_set'].fillna(0)
 
