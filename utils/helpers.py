@@ -47,6 +47,9 @@ def clean_aupvb_player_info(player_info):
     ]
     player_info = player_info[column_order]
 
+    player_info['block_assists'] = player_info['block_assists'].fillna(0)
+    player_info['block_assists_per_set'] = player_info['block_assists_per_set'].fillna(0)
+
     return player_info
 
 
