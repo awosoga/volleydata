@@ -77,7 +77,7 @@ def clean_aupvb_leaderboards(leaderboards):
         columns, and renamed fields.
     """
     leaderboards = leaderboards.drop(['pointTotals.statPoints', 'pointTotals.mvpPoints', 'pointTotals.winPoints',
-                                      'leaderboardHistory', 'leaderboardHistory.weeks', 'leaderboardHistory.games'], axis=1)
+                                      'leaderboardHistory', 'leaderboardHistory.weeks', 'leaderboardHistory.games'], axis=1,  errors='ignore')
     leaderboards.columns = [col.split('.')[-1] for col in leaderboards.columns]
     leaderboards = leaderboards.clean_names(case_type="snake")
 
@@ -102,7 +102,7 @@ def clean_aupvb_leaderboards(leaderboards):
         'rank' : 'game_rank',
         'games_played' : 'has_game_experience',
     }
-    leaderboards = leaderboards.rename(columns=column_mapping)
+    leaderboards = leaderboards.rename(columns=column_mapping, errors='ignore')
 
     column_order = [
         'season', 'week_number', 'game_number', 'game_rank', 'first_name', 'last_name', 'uniform_number',
@@ -119,6 +119,12 @@ def clean_aupvb_leaderboards(leaderboards):
         'uniform_number_display', 'overall_rank', 'overall_rank_change', 'total_au_points', 'percent_change',
         'position_change', 'updated_flg', 'tie_flg', 'missed_games_flg', 'previous_seqno', 'has_game_experience'
     ]
+
+        # add missing columns with NaN values
+    for col in column_order:
+        if col not in leaderboards.columns:
+            leaderboards[col] = pd.NA
+
     leaderboards = leaderboards[column_order]
 
     fillna_columns = [

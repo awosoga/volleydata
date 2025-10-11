@@ -83,6 +83,7 @@ def update_aupvb_leaderboards():
     except Exception as e:
         leaderboards = pd.DataFrame()
 
+    updated_leaderboards = pd.DataFrame()
     season = current_schedule['season'].iloc[0]
     season_id = current_schedule['seasonId'].iloc[0]
     games_to_fetch = current_schedule['game_number'].tolist()
@@ -104,11 +105,12 @@ def update_aupvb_leaderboards():
         new_leaderboards = extract_aupvb_leaderboards(json)
         new_leaderboards['season'] = season
 
-        leaderboards = pd.concat([leaderboards, new_leaderboards], ignore_index=True)
+        updated_leaderboards = pd.concat([updated_leaderboards, new_leaderboards], ignore_index=True)
 
-    leaderboards = clean_aupvb_leaderboards(leaderboards)
+    updated_leaderboards = clean_aupvb_leaderboards(updated_leaderboards)
+    leaderboards = pd.concat([leaderboards, updated_leaderboards], ignore_index=True)
     leaderboards.to_csv('aupvb_leaderboards.csv', index=False)
-    #upload_to_releases('aupvb_leaderboards.csv', 'aupvb-leaderboards')
+    upload_to_releases('aupvb_leaderboards.csv', 'aupvb-leaderboards')
 
 def update_aupvb_pbp():
     """
@@ -168,5 +170,5 @@ def update_aupvb_pbp():
 # Run the updates
 if __name__ == "__main__":
     update_aupvb_player_info()
-    #update_aupvb_leaderboards()
+    update_aupvb_leaderboards()
     update_aupvb_pbp()
