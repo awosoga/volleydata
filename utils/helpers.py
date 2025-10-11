@@ -45,6 +45,12 @@ def clean_aupvb_player_info(player_info):
         'season_id', 'season_type', 'player_id', 'player_slug',
         'uniform_number_display', 'team_id', 'type', 'stat_type',    
     ]
+
+    # add missing columns with NaN values
+    for col in column_order:
+        if col not in player_info.columns:
+            player_info[col] = pd.NA
+
     player_info = player_info[column_order]
 
     player_info['played_this_match'] = player_info['played_this_match'].fillna(0).astype(bool)

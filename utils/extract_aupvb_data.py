@@ -1,6 +1,7 @@
 import pandas as pd
 from datetime import datetime
-
+import json
+import requests
 
 def extract_aupvb_player_info(json):
     """
@@ -53,6 +54,7 @@ def extract_aupvb_leaderboards(json):
 
 
 def extract_aupvb_pbp(json):
+
     """
     Extract play by play information from Athletes Unlimited Pro Volleyball game Json data.
 
@@ -65,3 +67,30 @@ def extract_aupvb_pbp(json):
     pbp['week_number'] = -(-pbp['gameNumber'] // 6)
 
     return pbp
+
+def extract_aupvb_schedule():
+    """
+    Extract Athletes Unlimited Pro Volleyball schedule data for a given year.
+
+    Parameters
+    ----------
+    year : int
+        The year for which to extract the schedule data.
+
+    Returns
+    -------
+    pd.DataFrame
+        A DataFrame containing the schedule information for the specified year.
+    """
+    url = "https://auprosports.com/proxy.php?request=api/seasons/volleyball/v1"
+    response = requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
+    schedule_json = response.json()
+
+    schedule = pd.json_normalize(schedule_json.get('data', []))
+    schedule['season'] = schedule['description'].str.extract(r'(\d{4})').astype(int)
+    schedule = schedule.explode('gameIds')
+    
+    # Group by season and create ascending game number within each group
+    schedule['game_number'] = schedule.groupby('season').cumcount() + 1
+
+    return schedule
