@@ -183,6 +183,12 @@ def clean_aupvb_pbp(pbp):
         'video_minutes', 'video_seconds', 'alternate_video_seconds', 
         'date_time_file_received', 
     ]
+
+    # add missing columns with NaN values
+    for col in column_order:
+        if col not in pbp.columns:
+            pbp[col] = pd.NA
+
     pbp = pbp[column_order]
     
     return pbp
@@ -206,5 +212,6 @@ def get_season_id(season):
         2022 : 11, 
         2023 : 138,
         2024 : 205,
+        2025 : 304,
     }
     return season_ids.get(season)
