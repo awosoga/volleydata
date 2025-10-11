@@ -160,10 +160,9 @@ def update_aupvb_pbp():
 
         updated_pbp = pd.concat([updated_pbp, new_pbp], ignore_index=True)
 
-    updated_pbp = clean_aupvb_pbp(updated_pbp)
-    pbp = pd.concat([pbp, updated_pbp], ignore_index=True)
-
-    if not pbp.empty:
+    if not updated_pbp.empty:
+        updated_pbp = clean_aupvb_pbp(updated_pbp)
+        pbp = pd.concat([pbp, updated_pbp], ignore_index=True)
         pbp = clean_aupvb_pbp(pbp)
         file_name = 'aupvb_pbp_' + str(season) + '.csv'
         pbp.to_csv(file_name, index=False)
