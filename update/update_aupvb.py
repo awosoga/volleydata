@@ -57,10 +57,11 @@ def update_aupvb_player_info():
 
         updated_player_info = pd.concat([updated_player_info, new_player_info], ignore_index=True)
 
-    updated_player_info = clean_aupvb_player_info(updated_player_info)
-    player_info = pd.concat([player_info, updated_player_info], ignore_index=True)
-    player_info.to_csv('aupvb_player_info.csv', index=False)
-    upload_to_releases('aupvb_player_info.csv', 'aupvb-player-info')
+    if not updated_player_info.empty:
+        updated_player_info = clean_aupvb_player_info(updated_player_info)
+        player_info = pd.concat([player_info, updated_player_info], ignore_index=True)
+        player_info.to_csv('aupvb_player_info.csv', index=False)
+        upload_to_releases('aupvb_player_info.csv', 'aupvb-player-info')
 
 def update_aupvb_leaderboards():
     """
@@ -107,10 +108,11 @@ def update_aupvb_leaderboards():
 
         updated_leaderboards = pd.concat([updated_leaderboards, new_leaderboards], ignore_index=True)
 
-    updated_leaderboards = clean_aupvb_leaderboards(updated_leaderboards)
-    leaderboards = pd.concat([leaderboards, updated_leaderboards], ignore_index=True)
-    leaderboards.to_csv('aupvb_leaderboards.csv', index=False)
-    upload_to_releases('aupvb_leaderboards.csv', 'aupvb-leaderboards')
+    if not updated_leaderboards.empty:
+        updated_leaderboards = clean_aupvb_leaderboards(updated_leaderboards)
+        leaderboards = pd.concat([leaderboards, updated_leaderboards], ignore_index=True)
+        leaderboards.to_csv('aupvb_leaderboards.csv', index=False)
+        upload_to_releases('aupvb_leaderboards.csv', 'aupvb-leaderboards')
 
 def update_aupvb_pbp():
     """
@@ -161,10 +163,11 @@ def update_aupvb_pbp():
     updated_pbp = clean_aupvb_pbp(updated_pbp)
     pbp = pd.concat([pbp, updated_pbp], ignore_index=True)
 
-    pbp = clean_aupvb_pbp(pbp)
-    file_name = 'aupvb_pbp_' + str(season) + '.csv'
-    pbp.to_csv(file_name, index=False)
-    upload_to_releases(file_name, 'aupvb-pbp')
+    if not pbp.empty:
+        pbp = clean_aupvb_pbp(pbp)
+        file_name = 'aupvb_pbp_' + str(season) + '.csv'
+        pbp.to_csv(file_name, index=False)
+        upload_to_releases(file_name, 'aupvb-pbp')
 
 
 # Run the updates
