@@ -29,7 +29,7 @@ def update_aupvb_player_info():
     # if current_game is null, set it to max game_number
     current_game = current_game if pd.notnull(current_game) else current_schedule['game_number'].max()
 
-    current_schedule = current_schedule[current_schedule['game_number'] < current_game]
+    current_schedule = current_schedule[current_schedule['game_number'] <= current_game]
     
     try:
         player_info = pd.read_csv('https://github.com/awosoga/volleydata/releases/download/aupvb-player-info/aupvb_player_info.csv')
@@ -83,7 +83,7 @@ def update_aupvb_leaderboards():
         # if current_game is null, set it to max game_number
     current_game = current_game if pd.notnull(current_game) else current_schedule['game_number'].max()
 
-    current_schedule = current_schedule[current_schedule['game_number'] < current_game]
+    current_schedule = current_schedule[current_schedule['game_number'] <= current_game]
 
     try:
         leaderboards = pd.read_csv('https://github.com/awosoga/volleydata/releases/download/aupvb-leaderboards/aupvb_leaderboards.csv')
@@ -137,7 +137,7 @@ def update_aupvb_pbp():
     # if current_game is null, set it to max game_number
     current_game = current_game if pd.notnull(current_game) else current_schedule['game_number'].max()
 
-    current_schedule = current_schedule[current_schedule['game_number'] < current_game]
+    current_schedule = current_schedule[current_schedule['game_number'] <= current_game]
 
     try:
         pbp = pd.read_csv(f'https://github.com/awosoga/volleydata/releases/download/aupvb-pbp/aupvb_pbp_{current_year}.csv')
