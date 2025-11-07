@@ -1,8 +1,8 @@
 name: Update AUPVB game data
 
 on: 
-  schedule:
-    - cron: "5 8 * 10-11 *" # Runs daily at 4:05 AM UTC from October through November
+  #schedule:
+   # - cron: "5 8 * 10 *" # Runs daily at 4:05 AM UTC in October
   workflow_dispatch: # Allows manual triggering
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with: 
-          python-version: '3.x'
+          python-version: '3.13'
 
       - name: Install dependencies
         run: |
