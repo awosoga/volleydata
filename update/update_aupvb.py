@@ -26,6 +26,9 @@ def update_aupvb_player_info():
     
     # Determine current game number and filter schedule
     current_game = current_schedule['currentGame'].max()
+    # if current_game is null, set it to max game_number
+    current_game = current_game if pd.notnull(current_game) else current_schedule['game_number'].max()
+
     current_schedule = current_schedule[current_schedule['game_number'] < current_game]
     
     try:
@@ -77,6 +80,9 @@ def update_aupvb_leaderboards():
     
     # Determine current game number and filter schedule
     current_game = current_schedule['currentGame'].max()
+        # if current_game is null, set it to max game_number
+    current_game = current_game if pd.notnull(current_game) else current_schedule['game_number'].max()
+
     current_schedule = current_schedule[current_schedule['game_number'] < current_game]
 
     try:
@@ -128,6 +134,9 @@ def update_aupvb_pbp():
     
     # Determine current game number and filter schedule
     current_game = current_schedule['currentGame'].max()
+    # if current_game is null, set it to max game_number
+    current_game = current_game if pd.notnull(current_game) else current_schedule['game_number'].max()
+
     current_schedule = current_schedule[current_schedule['game_number'] < current_game]
 
     try:
