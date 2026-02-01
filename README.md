@@ -3,7 +3,7 @@
 Data repository for game data from [League One Volleyball Pro (LOVB)](https://www.lovb.com/),
 [Athletes Unlimited Pro Volleyball
 (AUPVB)](https://auprosports.com/volleyball/), and [Major League
-Volleyball(MLV)](https://provolleyball.com/) leagues.
+Volleyball (MLV)](https://provolleyball.com/) leagues.
 
 ## Usage
 
