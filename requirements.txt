@@ -1,5 +1,0 @@
-pyjanitor~=0.31.0
-pandas~=2.2.3
-requests~=2.32.3
-python-dotenv~=1.1.1
-PyGithub~=2.6.1
