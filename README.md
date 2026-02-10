@@ -9,5 +9,5 @@ Volleyball (MLV)](https://provolleyball.com/) leagues.
 
 This data can be accessed in two ways:
 
--  You can manually download the `.csv` and `.json` files via the release pages.
+-  You can manually download the `.csv` files via the release pages.
 -  You can use the functions from the [`rvolleydata`](https://awosoga.github.io/rvolleydata/)/[`pyvolleydata`](https://pyvolleydata.readthedocs.io) packages to load the data as data frames.
